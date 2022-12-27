@@ -231,7 +231,11 @@ elif [[ "$mode" = "vpn" ]]; then
       echo -e "${BGreen}Connected to the VPN server"
       # Waiting for the connection is really up before doing the curl
       echo -e "${BWhite}Server informations${White}"
-      echo "IP      : $(LANG=c ip a show tun0 | grep "inet " | awk '{print $2}' | awk -F/ '{print $1}')"
+      ip=$(LANG=c ip a show tun0 2>/dev/null| grep "inet " | awk '{print $2}' | awk -F/ '{print $1}')
+      # Display the IP address only if the ip a command was successful 
+      # (it's mainly to make sure everything still works even if tun0 is not the good interface,
+      # in that case, the only downside would be no IP address is shown in the server infos, but everything will still work)
+      [[ "$ip" = "" ]] || echo "IP      : $ip"
       echo "Country : $countryCode"
       sleep $interval
       echo -e "${BWhite}Changing VPN Server...${White}"
