@@ -35,11 +35,11 @@ rotation="random"
 # default vpn client
 client="protonvpn-cli"
 # Banner 
-echo -e "${BPurple}                ____ __  __ _____   ______ ";
-echo "               / ___|  \/  |_ _\ \ / / ___|";
-echo "              | |   | |\/| || | \ V / |    ";
-echo "              | |___| |  | || |  | || |___ ";
-echo "               \____|_|  |_|___| |_| \____|";
+echo -e "${BPurple}                _  __                       ";
+echo "               (_)/ _|_   _  ___ __ _ _ __  ";
+echo "               | | |_| | | |/ __/ _\` | '_ \ ";
+echo "               | |  _| |_| | (_| (_| | | | |";
+echo "               |_|_|  \__,_|\___\__,_|_| |_|";
 echo "";
 echo "                    Catch Me If You Can               ";
 echo -e "${Purple}               Tool developed by QuetzalCtrl";
