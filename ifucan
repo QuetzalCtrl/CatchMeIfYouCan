@@ -24,16 +24,15 @@ BPurple='\033[1;35m'      # Purple
 BCyan='\033[1;36m'        # Cyan
 BWhite='\033[1;37m'       # White
 
-# default mode
+# default values 
 mode="proxy"
-# Set the default rotation interval (in seconds)
 interval=60
-# default timeout before skipping proxy when running tests (in seconds)
 timeout=10
-# default rotation mode 
 rotation="random"
-# default vpn client
 client="protonvpn-cli"
+protocol="http-https"
+filter="ALL"
+
 # Banner 
 echo -e "${BPurple}                _  __                       ";
 echo "               (_)/ _|_   _  ___ __ _ _ __  ";
@@ -46,7 +45,6 @@ echo -e "${Purple}               Tool developed by QuetzalCtrl";
 echo "               https://github.com/QuetzalCtrl";
 echo -e "${BWhite}";
 echo "Catch Me If You Can is a tool that performs automated IP rotation using proxies or VPNs."
-echo "Important : As this script uses system-wide configurations, you may need root privileges."
 # echo ""
 # echo "VPNs are a more secure and reliable option for IP rotating, but they may not be suitable for all use cases."
 # echo "Proxies are a simpler and faster option, but they may not provide as much anonymity or security."
@@ -55,27 +53,36 @@ echo -e "${BBlue}===============================================================
 echo -e "${White}"
 
 # Parse command line options
-while getopts ":m:i:t:hp:c:" opt; do
+while getopts ":m:i:t:hp:c:r:x:f:l" opt; do
   case $opt in
     m) if [[ "$OPTARG" = "vpn" ]] || [[ "$OPTARG" = "proxy" ]]; then 
         mode="$OPTARG"
       else 
-        echo "$OPTARG: Incorrect value for the -m option. Valid options : vpn proxy" >&2; exit 1
+        echo "$OPTARG: Incorrect value for the -m option. Valid options : vpn | proxy" >&2; exit 1
       fi ;;
     i) interval="$OPTARG";;
     t) timeout="$OPTARG" ;;
     p) proxy_list="$OPTARG" ;;
     c) client="$OPTARG" ;;
     r) rotation="$OPTARG" ;;
+    x) if [[ "$OPTARG" = "http-only" ]] || [[ "$OPTARG" = "https-only" ]] || [[ "$OPTARG" = "http-https" ]]; then 
+        protocol="$OPTARG"
+      else 
+        echo "$OPTARG: Incorrect value for the -x option. Valid options : http-only | https-only | http-https" >&2; exit 1
+      fi ;;
+    f) filter="$OPTARG";;
+    l) 
+      echo "TODO"
+      exit 0;;
     h)
-      echo -e "${BWhite}Usage:${White} $0 [-m mode] [-i interval] [-h]"
+      echo -e "${BWhite}Usage:${White} $0 [-h] [-m mode] [-i interval] [-r rotation]"
       echo ""
       echo -e "${BWhite}Optional arguments:${White}"
+      echo "      -h help     : Display help message"
       echo "      -m mode     : IP Rotation mode (proxy | vpn)"
       echo "         Default  : proxy"
       echo "      -i interval : Interval (in seconds) between every new connexion"
       echo "         Default  : 60";
-      echo "      -h help     : Display help message"
       echo "      -r rotation : Rotation mode (random | sequential)"
       echo "         Default  : random"
       echo ""
@@ -90,6 +97,9 @@ while getopts ":m:i:t:hp:c:" opt; do
       echo -e "${BWhite}VPN mode arguments:${White}"
       echo "      -c client   : VPN Client (protonvpn-cli | cyberghostvpn | windscribe-cli)"
       echo "         Default  : protonvpn-cli"
+      echo "      -f filter   : Connect only to the country given (By country-code, separated by a comma if multiple)"
+      echo "         Default  : ALL"
+      echo "      -l list     : List the available countries for a specific VPN"
       echo ""
       echo -e "${BWhite}Examples:${White}"
       echo "      $0 -m vpn -i 100"
