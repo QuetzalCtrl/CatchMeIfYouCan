@@ -1,18 +1,8 @@
 # Catch Me If You Can (ifucan)
 
 Catch Me If You Can (or ifucan) is a tool that performs automated IP rotation using proxies or VPNs on Linux systems.
-```
-                _  __                       
-               (_)/ _|_   _  ___ __ _ _ __  
-               | | |_| | | |/ __/ _` | '_ \ 
-               | |  _| |_| | (_| (_| | | | |
-               |_|_|  \__,_|\___\__,_|_| |_|
 
-                    Catch Me If You Can               
-               Tool developed by QuetzalCtrl
-               https://github.com/QuetzalCtrl
-
-```
+![ifucan](https://user-images.githubusercontent.com/58345798/210527533-c440dde1-c891-452a-a518-b874c8abd124.png)
 
 ## Requirements
 
@@ -43,6 +33,8 @@ To install this tool from the git repository, follow these steps:
 To use this tool, run the following command:
 
 `ifucan [-h] [-m mode] [-i interval] [-r rotation]`
+
+![ifucan](https://user-images.githubusercontent.com/58345798/210527642-79f0a6f6-2f69-40f7-9cce-f308d71935cb.gif)
 
 ### Options
 
